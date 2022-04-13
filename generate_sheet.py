@@ -15,7 +15,6 @@ from PIL import Image
 
 path = '#caravelaportuguesa/'
 url_raw = 'https://raw.githubusercontent.com/heloisafr/caravela_dados/master/caravelaportuguesa/'
-url_insta = 'https://www.instagram.com/p/'
 
 #LEITURA DOS JSONS
 # cria um dataframe a partir dos dados brutos do .json.xz
@@ -142,7 +141,7 @@ header_format = workbook.add_format()
 header_format.set_bold()
 worksheet.write_row(0, 0, ('TIMESTAMP','LAT','LONG','LOC COUNTRY','LOC CITY','LOC NAME',
                            'GEOLOCATION NAME','LOCATION NAME','STATE','CITY','ROTULO',
-                           'NUM','URL INSTA','TEXTO','IMAGENS'), header_format)
+                           'NUM','SHORCODE','TEXTO','IMAGENS'), header_format)
 
 # formatação das celular
 cell_format = workbook.add_format()
@@ -160,7 +159,7 @@ col_state = 8
 col_city = 9
 col_rotulo = 10
 col_numero = 11
-col_url = 12
+col_shortcode = 12
 col_texto = 13
 col_imagem = 14
 
@@ -224,7 +223,7 @@ for linha in df.itertuples():
     worksheet.write(row, col_loc_country, linha.country_code)
     worksheet.write(row, col_loc_city, linha.city if linha.city!='' else linha.city2, cell_format)
     worksheet.write(row, col_loc_name, linha.name if linha.name!='' else linha.name2, cell_format)
-    worksheet.write(row, col_url, url_insta + linha.shortcode)
+    worksheet.write(row, col_shortcode, linha.shortcode)
 
     row += 1
 
@@ -238,7 +237,7 @@ for linha in df.itertuples():
     #   print("")
 
 
-source = ['AVISTAMENTO','ACIDENTE', 'ALERTA', 'PORTUGAL', 'REPOST', 'NADA']
+source = ['AVISTAMENTO','ACIDENTE', 'DUVIDA', 'ALERTA', 'PORTUGAL', 'REPOST', 'NADA']
 worksheet.data_validation(1, col_rotulo, row, col_rotulo, {'validate': 'list', 'source': source})
 
 workbook.close()
