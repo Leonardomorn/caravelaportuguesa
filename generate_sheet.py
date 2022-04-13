@@ -13,6 +13,7 @@ from os import remove
 from os.path import exists
 from PIL import Image
 
+hashtag = '#caravelaportuguesa'
 path = '#caravelaportuguesa/'
 url_raw = 'https://raw.githubusercontent.com/heloisafr/caravela_dados/master/caravelaportuguesa/'
 
@@ -22,17 +23,17 @@ url_raw = 'https://raw.githubusercontent.com/heloisafr/caravela_dados/master/car
 
 data = []
 index = []
-files = glob.glob('#caravelaportuguesa/*.json.xz')
+files = glob.glob(hashtag + '/*.json.xz')
 
 c=0
 for file in files:
 
-  if file == '#caravelaportuguesa/#caravelaportuguesa.json.xz':
+  if file == hashtag+'/'+hashtag+'.json.xz':
     continue
 
   conteudo = json.loads(lzma.open(file).read())
 
-  utc = file.replace('.json.xz', '').replace('#caravelaportuguesa/', '')
+  utc = file.replace('.json.xz', '').replace(hashtag+'/', '')
 
   timestamp = datetime.strptime(utc, "%Y-%m-%d_%H-%M-%S_UTC")
   typename = conteudo['node']['__typename']
